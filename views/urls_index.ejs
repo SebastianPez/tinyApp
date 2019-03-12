@@ -9,7 +9,11 @@
   <title>TinyApp</title>
 </head>
 <body style="font-size:20px; padding:50px;">
-    <pre><%= JSON.stringify(urls, null, 2) %></pre>
+    <header>
+        <% include ./partials/_headers %>
+    </header>
     <h3><a href="#">Create New TinyURL</a></h3>
+    <h2>Current URL's:</h2>
+    <pre><%= JSON.stringify(urls, null, 2) %></pre>
 </body>
 </html>
