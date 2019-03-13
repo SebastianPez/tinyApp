@@ -16,14 +16,15 @@
     <h2>Current URL's:</h2>
     <% for (shortUrl in urls) { %>
       <section>
-        <header><%= shortUrl %></header>
+        <header><%= shortUrl %> links to: </header>
         <article>
           <%= urls[shortUrl] %><br />
         </article>
       </section>
-      <form method="POST" action="/urls/9sm5xK/delete">
+      <form method="POST" action="/urls/<%= shortUrl %>/delete">
         <input type="submit" value="Delete">
       </form>
+      <a href="/urls/<%= shortUrl %>">Edit</a>
     <% } %>
   </body>
 </html>
