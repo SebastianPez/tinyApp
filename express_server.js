@@ -23,6 +23,9 @@ const urlDatabase = {
 
 app.post("/urls", (req, res) => {
   console.log(req.body);
+  let shortURL = generateRandomString();
+  urlDatabase[shortURL] = req.body.longURL;
+  console.log(urlDatabase);
   res.send("Ok");
 });
 
