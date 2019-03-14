@@ -19,8 +19,9 @@ function emailCheck(email) {
     if (email === users[user].email) {
       return true;
     }
-  } else {
+    else {
     return false;
+    }
   }
 }
 
@@ -54,18 +55,19 @@ app.get("/register", (req, res) => {
 
 app.post("/register", (req, res) => {
   const { email, password} = req.body;
-  if (email.length === 0 || password.length === 0) {
+  if (email.length === 0 || password.length === 0 || emailCheck(email) === true) {
     res.sendStatus(400);
+  } else {
+    user_id = generateRandomString();
+    users[user_id] = {
+      id: user_id, 
+      email: email, 
+      password: password
+    };
+    res.cookie("user_id", user_id);
+    res.redirect(`/urls`);
+    console.log(users);
   }
-  user_id = generateRandomString();
-  users[user_id] = {
-    id: user_id, 
-    email: email, 
-    password: password
-  };
-  res.cookie("user_id", user_id);
-  res.redirect(`/urls`);
-  console.log(users);
 })
 
 app.post("/login", (req, res) => {
