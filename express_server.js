@@ -24,6 +24,10 @@ const urlDatabase = {
   "9sm5xK": "http://www.google.com"
 };
 
+app.get("/register", (req, res) => {
+  res.render("urls_index");
+})
+
 app.post("/login", (req, res) => {
 res.cookie("username", req.body.username);
 res.redirect(`/urls`);
