@@ -15,16 +15,18 @@
     <h3><a href=" /urls/new">Create New TinyURL</a></h3>
     <h2>Current URL's:</h2>
     <% for (shortUrl in urls) { %>
-      <section>
-        <header><%= shortUrl %> links to: </header>
-        <article>
-          <%= urls[shortUrl] %><br />
-        </article>
-      </section>
-      <form method="POST" action="/urls/<%= shortUrl %>/delete">
-        <input type="submit" value="Delete">
-      </form>
-      <a href="/urls/<%= shortUrl %>">Edit</a>
-    <% } %>
+      <% if (username === urls[shortUrl].user_id) { %>
+        <section>
+         <header><%= shortUrl %> links to: </header>
+         <article>
+           <%= urls[shortUrl].longURL %><br />
+         </article>
+        </section>
+       <form method="POST" action="/urls/<%= shortUrl %>/delete">
+         <input type="submit" value="Delete">
+       </form>
+       <a href="/urls/<%= shortUrl %>">Edit</a>
+      <% } %>
+     <% } %>
   </body>
 </html>
