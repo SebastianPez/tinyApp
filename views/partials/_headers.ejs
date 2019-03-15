@@ -1,9 +1,10 @@
 <h1>TinyApp</h1>
-<form method="POST" action="/login">
-    <% if (username !== undefined) { %>
-        <h4>Welcome back <%= username %>!</h4><br />
+<% if (username !== null) { %>
+    <h4>Keep it Tiny <%= username.email %>!</h4><br />
+    <form method="POST" action="/logout">
+        <input type="submit" value="logout">
+    </form>
     <% } else { %>
-    <input type="text" name="username" placeholder="Username here :)" style="width: 160px; margin: 1em">
-    <input type="submit" value="Username">
-    <% } %>
-</form>
+        <a href="/register">Register!</a><br />
+        <a href="/login">Login</a><br /><br />
+<% } %>

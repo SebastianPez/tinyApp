@@ -7,13 +7,18 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     
-        <title>New URL - TinyApp Example</title>
+        <title>TinyApp Registration</title>
     </head>
     <body>
+        <header>
+            <% include ./partials/_headers %><br />
+        </header>
+        <h2>Register</h2><br />
         <form method="POST" action="/register">
+            <h4>Email / Password</h4>
             <input type="email" name="email" placeholder="example@domain.com" style="width: 220px; margin: 1em">
             <input type="password" name="password" placeholder="secret password ;)" style="width: 220px; margin: 1em">
-            <button type="submit">Login</button>
+            <button type="submit">Register</button>
         </form>
     </body>
 </html>
