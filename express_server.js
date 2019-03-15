@@ -119,14 +119,18 @@ app.get("/urls", auth, (req, res) => {
 });
 
 app.get("/urls/new", auth, (req, res) => {
-  let templateVars = {
-    username: req.userAuth 
+  let user_id = req.cookies.user_id;
+  if (user_id !== undefined) {
+    let templateVars = {
+      username: req.userAuth 
+    }
+    res.render("urls_new", templateVars);
+    } else {
+      res.redirect('/login');
   }
-  res.render("urls_new", templateVars);
 })
 
 app.post("/urls/:id", (req, res) => {
-  // let templateVars = { shortURL: req.params.shortURL, longURL: urlDatabase[req.params.shortURL], username: req.userAuth};
   urlDatabase[req.params.id] = req.body.longURL;
   res.redirect('/urls');
 })
