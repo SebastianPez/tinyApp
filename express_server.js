@@ -2,7 +2,8 @@ const express = require("express");
 const app = express();
 const PORT = 8080; // default port 8080
 const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser")
+const cookieParser = require("cookie-parser");
+const bcrypt = require('bcrypt');
 
 function generateRandomString() {
   let randomStr = "";
@@ -19,10 +20,8 @@ function emailCheck(email) {
     if (email === users[user].email) {
       return users[user];
     }
-    else {
-    return false;
-    }
   }
+  return false;
 }
 
 function urlsForUser(id) {
@@ -50,11 +49,11 @@ const urlDatabase = {
 
 const users = {
 
-  "testID": {
-    id: "testID",
-    email: "test@test.com",
-    password: "test"
-  },
+  // "testID": {
+  //   id: "testID",
+  //   email: "test@test.com",
+  //   password: "test"
+  // },
 
   "userRandomID": {
     id: "userRandomID", 
@@ -90,6 +89,7 @@ app.get("/register", auth, (req, res) => {
 
 app.post("/register", (req, res) => {
   const { email, password} = req.body;
+  const hashedPassword = bcrypt.hashSync(password, 10);
   if (email.length === 0 || password.length === 0 || emailCheck(email)) {
     res.sendStatus(400);
   } else {
@@ -97,7 +97,7 @@ app.post("/register", (req, res) => {
     users[user_id] = {
       id: user_id, 
       email: email, 
-      password: password
+      password: hashedPassword
     };
     res.cookie("user_id", user_id);
     res.redirect(`/urls`);
@@ -108,11 +108,11 @@ app.post("/login", (req, res) => {
   const user = emailCheck(req.body.email)
   if (user === false) {
     res.sendStatus(403);
-  } else if (req.body.password !== user.password) {
-    res.sendStatus(403);
-  } else {
+  } else if (bcrypt.compareSync(req.body.password, user.password)) {
     res.cookie("user_id", user.id);
     res.redirect(`/urls`);
+  } else {
+    res.sendStatus(403);
   }
 })
 
