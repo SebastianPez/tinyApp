@@ -15,9 +15,8 @@
     <h3><a href=" /urls/new">Create New TinyURL</a></h3>
     <h2>Current URL's:</h2>
     <% for (shortUrl in urls) { %>
-      <% if (username === urls[shortUrl].user_id) { %>
         <section>
-         <header><%= shortUrl %> links to: </header>
+         <header><%= urls[shortUrl].shortURL %> links to: </header>
          <article>
            <%= urls[shortUrl].longURL %><br />
          </article>
@@ -27,6 +26,5 @@
        </form>
        <a href="/urls/<%= shortUrl %>">Edit</a>
       <% } %>
-     <% } %>
   </body>
 </html>

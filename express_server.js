@@ -25,6 +25,15 @@ function emailCheck(email) {
   }
 }
 
+function urlsForUser(id) {
+  let userUrls = {};
+  for (let shortUrl in urlDatabase) {
+    if (id === urlDatabase[shortUrl].user_id) {
+      userUrls[shortUrl] = urlDatabase[shortUrl];
+    }
+  }
+  return userUrls;
+}
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
@@ -33,8 +42,9 @@ app.use(cookieParser());
 const urlDatabase = {
   "b2xVn2": {
     longURL: "http://www.lighthouselabs.ca",
-    user_id: 'testID'
-},
+    user_id: 'testID',
+    shortURL: 'b2xVn2'
+  },
   "9sm5xK": { longURL: "http://www.google.com"}
 }
 
@@ -128,9 +138,8 @@ app.post("/urls/:shortURL/delete", (req, res) => {
 })
 
 app.get("/urls", auth, (req, res) => {
-  // console.log("in URL's", req.userAuth);
   if (req.userAuth) {
-    let templateVars = { urls: urlDatabase, username: req.userAuth.id};
+    let templateVars = { urls: urlsForUser(req.userAuth.id), username: req.userAuth.id};
     res.render("urls_index", templateVars);
   } else {
     res.send('You need to login before seeing shortened URLs');
