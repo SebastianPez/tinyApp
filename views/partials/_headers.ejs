@@ -1,6 +1,7 @@
 <h1>TinyApp</h1>
 <% if (username !== null) { %>
-    <h4>Keep it Tiny <%= username.email %>!</h4><br />
+    <h4>Keep it Tiny <%= username.email %>!</h4>
+    <a href="/urls">Your URL's</a>
     <form method="POST" action="/logout">
         <input type="submit" value="logout">
     </form>

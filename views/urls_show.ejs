@@ -16,7 +16,7 @@
     <% for (shortUrl in urls) { %>
     <h3>ShortURL: <%= urls[shortUrl].shortURL %></h3>
     <form method="POST" action="/urls/<%= urls[shortUrl].shortURL %>">
-      <input type="text" name="longURL" placeholder="<%= urls[shortUrl].longURL %>" style="width: 300px; margin: 1em">
+      <input type="text" name="longURL" placeholder="<%= urls[shortUrl].shortURL %>" style="width: 300px; margin: 1em">
       <input type="submit" value="Update longURL">
     </form>
     <% } %>
