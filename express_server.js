@@ -125,6 +125,7 @@ app.post("/urls", (req, res) => {
   let shortURL = generateRandomString();
   urlDatabase[shortURL] = { 
     longURL: req.body.longURL,
+    shortURL: shortURL,
     user_id: users[req.cookies.user_id].id
   }
   // console.log(urlDatabase);
@@ -133,8 +134,12 @@ app.post("/urls", (req, res) => {
 
 app.post("/urls/:shortURL/delete", (req, res) => {
   let shortURL = req.params.shortURL;
+  if (req.cookies.user_id === urlDatabase[shortURL].user_id) {
   delete urlDatabase[shortURL];
   res.redirect(`/urls`);
+  } else {
+    res.redirect(`/login`);
+  }
 })
 
 app.get("/urls", auth, (req, res) => {
@@ -163,6 +168,7 @@ app.post("/urls/:id", (req, res) => {
     longURL:req.body.longURL,
     user_id: [req.params.id]
   }
+  console.log(urlDatabase);
   res.redirect('/urls');
 })
 
@@ -176,7 +182,7 @@ app.get("/urls/:shortURL", auth, (req, res) => {
 })
 
 app.get("/u/:shortURL", (req, res) => {
-  const longURL = urlDatabase[req.params.shortURL];
+  const longURL = urlDatabase[req.params.shortURL].longURL;
   res.redirect(longURL);
 });
 
