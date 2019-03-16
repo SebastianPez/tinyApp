@@ -167,8 +167,12 @@ app.post("/urls/:id", (req, res) => {
 })
 
 app.get("/urls/:shortURL", auth, (req, res) => {
-  let templateVars = { shortURL: req.params.shortURL, longURL: urlDatabase[req.params.shortURL], username: req.userAuth};
-  res.render("urls_show", templateVars);
+  if (req.userAuth) {
+    let templateVars = { urls: urlsForUser(req.userAuth.id), username: req.userAuth.id};
+    res.render("urls_show", templateVars);
+  } else {
+    res.send('You need to login before seeing shortened URLs');
+  }
 })
 
 app.get("/u/:shortURL", (req, res) => {
