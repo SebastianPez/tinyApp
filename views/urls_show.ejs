@@ -13,12 +13,10 @@
         <% include ./partials/_headers %>
     </header>
     <h3><a href="/urls/new">Create New TinyURL</a></h3>
-    <% for (shortUrl in urls) { %>
-    <h3>ShortURL: <%= urls[shortUrl].shortURL %></h3>
-    <form method="POST" action="/urls/<%= urls[shortUrl].shortURL %>">
-      <input type="text" name="longURL" placeholder="<%= urls[shortUrl].shortURL %>" style="width: 300px; margin: 1em">
+    <h3>ShortURL: <%= url.shortURL %></h3>
+    <form method="POST" action="/urls/<%= url.shortURL %>">
+      <input type="text" name="longURL" value="<%= url.longURL %>" style="width: 300px; margin: 1em">
       <input type="submit" value="Update longURL">
     </form>
-    <% } %>
 </body>
 </html>
