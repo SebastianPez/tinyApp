@@ -18,7 +18,7 @@
         <section>
          <header><%= urls[shortUrl].shortURL %> links to: </header>
          <article>
-           <%= urls[shortUrl].longURL %><br />
+           <a href="<%= urls[shortUrl].longURL %>"><%= urls[shortUrl].longURL %></a><br />
          </article>
         </section>
        <form method="POST" action="/urls/<%= shortUrl %>/delete">
